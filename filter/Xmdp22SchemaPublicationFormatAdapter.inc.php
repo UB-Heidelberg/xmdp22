@@ -21,10 +21,11 @@ import('plugins.metadata.xmdp22.schema.Pc14NameSchema');
 import('plugins.metadata.xmdp22.schema.CC21InstitutionSchema');
 
 class Xmdp22SchemaPublicationFormatAdapter extends MetadataDataObjectAdapter {
-	/**
-	 * Constructor
-	 * @param $filterGroup FilterGroup
-	 */
+    /**
+     * Constructor
+     * @param $filterGroup FilterGroup
+     * @return Xmdp22SchemaPublicationFormatAdapter
+     */
 	function Xmdp22SchemaPublicationFormatAdapter(&$filterGroup) {
 		parent::MetadataDataObjectAdapter($filterGroup);
 	}
@@ -44,13 +45,13 @@ class Xmdp22SchemaPublicationFormatAdapter extends MetadataDataObjectAdapter {
 	//
 	// Implement template methods from MetadataDataObjectAdapter
 	//
-	/**
-	 * @see MetadataDataObjectAdapter::injectMetadataIntoDataObject()
-	 * @param $description MetadataDescription
-	 * @param $publicationFormat PublicationFormat
-	 * @param $authorClassName string the application specific author class name
-	 */
-	function &injectMetadataIntoDataObject(&$description, &$publicationFormat, $authorClassName) {
+    /**
+     * @see MetadataDataObjectAdapter::injectMetadataIntoDataObject()
+     * @param $description MetadataDescription
+     * @param $publicationFormat PublicationFormat
+     * @return void
+     */
+	function &injectMetadataIntoDataObject(&$description, &$publicationFormat) {
 		// Not implemented
 		assert(false);
 	}
@@ -60,7 +61,7 @@ class Xmdp22SchemaPublicationFormatAdapter extends MetadataDataObjectAdapter {
 	 * @param $publicationFormat PublicationFormat
 	 * @return MetadataDescription
 	 */
-	function extractMetadataFromDataObject($publicationFormat) {
+	function extractMetadataFromDataObject(&$publicationFormat) {
 		assert(is_a($publicationFormat, 'PublicationFormat'));
 
 		AppLocale::requireComponents(LOCALE_COMPONENT_APP_COMMON);
@@ -96,8 +97,7 @@ class Xmdp22SchemaPublicationFormatAdapter extends MetadataDataObjectAdapter {
 		// Subject
 		$subjects = array_merge_recursive(
 				(array) $monograph->getDiscipline(null),
-				(array) $monograph->getSubject(null),
-				(array) $monograph->getSubjectClass(null));
+				(array) $monograph->getSubject(null));
 		$this->_addLocalizedElements($description, 'dc:subject[@xsi:type="xMetaDiss:noScheme"]', $subjects);
 		
 		// Table of Contents
@@ -212,10 +212,8 @@ class Xmdp22SchemaPublicationFormatAdapter extends MetadataDataObjectAdapter {
 		// Relation
 		
 		// Coverage
-		$coverage = array_merge_recursive(
-				(array) $monograph->getCoverageGeo(null),
-				(array) $monograph->getCoverageChron(null),
-				(array) $monograph->getCoverageSample(null));
+		$coverage = array_merge_recursive((array) $monograph->getCoverage(null)
+				);
 		$this->_addLocalizedElements($description, 'dc:coverage[@xsi:type="ddb:encoding" @ddb:Scheme="None"]', $coverage);
 		
 		// Rights
