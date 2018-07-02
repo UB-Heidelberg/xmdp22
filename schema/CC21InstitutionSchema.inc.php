@@ -20,9 +20,9 @@ class CC21InstitutionSchema extends MetadataSchema {
 	 * Constructor
 	 * @param $appSpecificAssocType integer
 	 */
-	function CC21InstitutionSchema($appSpecificAssocType = ASSOC_TYPE_PRESS, $classname = 'plugins.metadata.xmdp22.schema.CC21InstitutionSchema') {
+	function __construct($appSpecificAssocType = ASSOC_TYPE_PRESS, $classname = 'plugins.metadata.xmdp22.schema.CC21InstitutionSchema') {
 		// Configure the meta-data schema.
-		parent::MetadataSchema(
+		parent::__construct(
 				'cc-2.1',
 				'cc',
 				$classname,

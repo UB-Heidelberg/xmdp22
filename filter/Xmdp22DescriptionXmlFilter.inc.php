@@ -25,9 +25,9 @@ class Xmdp22DescriptionXmlFilter extends PersistableFilter {
 	 * Constructor
 	 * @param $filterGroup FilterGroup
 	 */
-	function Xmdp22DescriptionXmlFilter($filterGroup) {
+	function __construct($filterGroup) {
 		$this->setDisplayName('XMDP 2.2');
-		parent::PersistableFilter($filterGroup);
+		parent::__construct($filterGroup);
 	}
 
 

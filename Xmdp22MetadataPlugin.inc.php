@@ -19,8 +19,8 @@ class Xmdp22MetadataPlugin extends MetadataPlugin {
 	/**
 	 * Constructor
 	 */
-	function Xmdp22MetadataPlugin() {
-		parent::MetadataPlugin();
+	function __construct() {
+		parent::__construct();
 	}
 
 	//
@@ -124,6 +124,22 @@ class Xmdp22MetadataPlugin extends MetadataPlugin {
 		$fieldName = str_replace(":", "_", $fieldName);
 		return $this->getSetting($pressId, $fieldName);
 	}
+
+	/**
+	 * @copydoc MetadataPlugin::supportsFormat()
+	 */
+	public function supportsFormat($format) {
+		return $format === 'xmdp22';
+	}
+
+	/**
+	 * @copydoc MetadataPlugin::getSchemaObject()
+	 */
+	public function getSchemaObject($format) {
+		assert($this->supportsFormat($format));
+		import('plugins.metadata.xmdp22.schema.Xmdp22Schema');
+		return new Xmdp22Schema();
+	}	
 }
 
 ?>

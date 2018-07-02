@@ -50,11 +50,11 @@ class Xmdp22SettingsForm extends Form {
 	 * @param $plugin DOIPubIdPlugin
 	 * @param $pressId integer
 	 */
-	function Xmdp22SettingsForm(&$plugin, $pressId) {
+	function __construct(&$plugin, $pressId) {
 		$this->_pressId = $pressId;
 		$this->_plugin =& $plugin;
 		
-		parent::Form($plugin->getTemplatePath() . 'settingsForm.tpl');
+		parent::__construct($plugin->getTemplatePath() . 'settingsForm.tpl');
 
 		$this->addCheck(new FormValidator($this, 'cc_place' ,'required', 'plugins.metadata.xmdp22.manager.settings.cc.place.required'));
 		$this->addCheck(new FormValidator($this, 'cc_address' ,'required', 'plugins.metadata.xmdp22.manager.settings.cc.address.required'));

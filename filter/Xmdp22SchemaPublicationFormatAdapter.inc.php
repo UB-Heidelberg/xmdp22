@@ -26,8 +26,8 @@ class Xmdp22SchemaPublicationFormatAdapter extends MetadataDataObjectAdapter {
      * @param $filterGroup FilterGroup
      * @return Xmdp22SchemaPublicationFormatAdapter
      */
-	function Xmdp22SchemaPublicationFormatAdapter(&$filterGroup) {
-		parent::MetadataDataObjectAdapter($filterGroup);
+	function __construct(&$filterGroup) {
+		parent::__construct($filterGroup);
 	}
 
 
@@ -241,7 +241,12 @@ class Xmdp22SchemaPublicationFormatAdapter extends MetadataDataObjectAdapter {
  			// if genre is not set, try to make monograph default
  			// -- this fails if the press uses custom components and the default components
  			// have been deleted
- 			$genreId = $genreDao->getByKey('MANUSCRIPT', $press->getId())->getId();
+ 			if ( $genre = $genreDao->getByKey('MANUSCRIPT', $press->getId()) ) {
+                $genreId = $genre->getId();
+            }
+            else {
+ 				fatalError("genre with key 'MANUSCRIPT' not found");
+            }
  			if ( isset($genreId) ) {
  				$metadataPlugins['Xmdp22MetadataPlugin']->updateSetting($monograph->getPressId(), "genre_id", $genreId);
  			}

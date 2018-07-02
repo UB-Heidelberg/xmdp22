@@ -20,9 +20,9 @@ class Xmdp22Schema extends MetadataSchema {
 	 * Constructor
 	 * @param $appSpecificAssocType integer
 	 */
-	function Xmdp22Schema($appSpecificAssocType = ASSOC_TYPE_PUBLICATION_FORMAT, $classname = 'plugins.metadata.xmdp22.schema.Xmdp22Schema') {
+	function __construct($appSpecificAssocType = ASSOC_TYPE_PUBLICATION_FORMAT, $classname = 'plugins.metadata.xmdp22.schema.Xmdp22Schema') {
 		// Configure the meta-data schema.
-		parent::MetadataSchema(
+		parent::__construct(
 				'xmdp-2.2',
 				'xmdp',
 				$classname,

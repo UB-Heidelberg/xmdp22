@@ -20,9 +20,9 @@ class Pc14NameSchema extends MetadataSchema {
 	 * Constructor
 	 * @param $appSpecificAssocType integer
 	 */
-	function Pc14NameSchema($appSpecificAssocType = ASSOC_TYPE_AUTHOR, $classname = 'plugins.metadata.xmdp22.schema.Pc14NameSchema') {
+	function __construct($appSpecificAssocType = ASSOC_TYPE_AUTHOR, $classname = 'plugins.metadata.xmdp22.schema.Pc14NameSchema') {
 		// Configure the meta-data schema.
-		parent::MetadataSchema(
+		parent::__construct(
 				'pc-1.4',
 				'pc',
 				$classname,
