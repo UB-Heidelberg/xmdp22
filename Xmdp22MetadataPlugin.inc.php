@@ -46,21 +46,14 @@ class Xmdp22MetadataPlugin extends MetadataPlugin {
 	function getDescription() {
 		return __('plugins.metadata.xmdp22.description');
 	}
-	
-	/**
-	 * @see Plugin::getTemplatePath($inCore)
-	 */
-	function getTemplatePath($inCore = false) {
-		return parent::getTemplatePath($inCore) . 'templates/';
-	}
-	
+
 	/**
 	 * @see PKPPlugin::getManagementVerbs()
 	 */
 	function getManagementVerbs() {
 		return array(array('settings', __('manager.plugins.settings')));
 	}
-	
+
 	function getActions($request, $actionArgs) {
 		$router = $request->getRouter();
 		import('lib.pkp.classes.linkAction.request.AjaxModal');
@@ -79,7 +72,7 @@ class Xmdp22MetadataPlugin extends MetadataPlugin {
 				parent::getActions($request, $actionArgs)
 		);
 	}
-	
+
 	/**
 	 * @copydoc PKPPlugin::manage()
 	 */
@@ -87,7 +80,7 @@ class Xmdp22MetadataPlugin extends MetadataPlugin {
 		$notificationManager = new NotificationManager();
 		$user = $request->getUser();
 		$press = $request->getPress();
-	
+
 		$settingsFormName = $this->getSettingsFormName();
 		$settingsFormNameParts = explode('.', $settingsFormName);
 		$settingsFormClassName = array_pop($settingsFormNameParts);
@@ -107,14 +100,14 @@ class Xmdp22MetadataPlugin extends MetadataPlugin {
 			return new JSONMessage(true, $form->fetch($request));
 		}
 	}
-	
+
 	/**
 	 * @see PubIdPlugin::getSettingsFormName()
 	 */
 	function getSettingsFormName() {
 		return 'form.Xmdp22SettingsForm';
 	}
-	
+
 	/**
 	 * Access settings.
 	 * @param string $fieldName
@@ -139,7 +132,7 @@ class Xmdp22MetadataPlugin extends MetadataPlugin {
 		assert($this->supportsFormat($format));
 		import('plugins.metadata.xmdp22.schema.Xmdp22Schema');
 		return new Xmdp22Schema();
-	}	
+	}
 }
 
 ?>

@@ -29,7 +29,7 @@ class Xmdp22SettingsForm extends Form {
 			"blocked" => "blocked",
 			"unkown" => "unknown"
 			);
-	
+
 	/** @var Xmdp22MetadataPlugin */
 	var $_plugin;
 
@@ -50,11 +50,11 @@ class Xmdp22SettingsForm extends Form {
 	 * @param $plugin DOIPubIdPlugin
 	 * @param $pressId integer
 	 */
-	function __construct(&$plugin, $pressId) {
+	function __construct($plugin, $pressId) {
 		$this->_pressId = $pressId;
-		$this->_plugin =& $plugin;
-		
-		parent::__construct($plugin->getTemplatePath() . 'settingsForm.tpl');
+		$this->_plugin = $plugin;
+
+		parent::__construct($plugin->getTemplateResource('settingsForm.tpl'));
 
 		$this->addCheck(new FormValidator($this, 'cc_place' ,'required', 'plugins.metadata.xmdp22.manager.settings.cc.place.required'));
 		$this->addCheck(new FormValidator($this, 'cc_address' ,'required', 'plugins.metadata.xmdp22.manager.settings.cc.address.required'));
@@ -88,10 +88,10 @@ class Xmdp22SettingsForm extends Form {
 	function initData() {
 		$pressId = $this->_getPressId();
 		$plugin =& $this->_getPlugin();
-		
+
 		$this->setData("ddbKindOptions", $this->_ddbKindOptions);
 		$this->setData("genres", $this->_retrieveGenreList($pressId));
-		
+
 		foreach($this->_getFormFields() as $fieldName => $fieldType) {
 			$this->setData($fieldName, $plugin->getSetting($pressId, $fieldName));
 		}
@@ -121,13 +121,13 @@ class Xmdp22SettingsForm extends Form {
 	function validate() {
 		// FIXME: There is probably a better way to add these options to the template.
 		$pressId = $this->_getPressId();
-		
+
 		$this->setData("ddbKindOptions", $this->_ddbKindOptions);
 		$this->setData("genres", $this->_retrieveGenreList($pressId));
-	
+
 		return parent::validate();
 	}
-	
+
 	//
 	// Private helper methods
 	//
@@ -140,7 +140,7 @@ class Xmdp22SettingsForm extends Form {
 			'genre_id' => 'string',
 		);
 	}
-	
+
 	/**
 	 * Get the press ID.
 	 * @return integer
@@ -148,12 +148,12 @@ class Xmdp22SettingsForm extends Form {
 	function _getPressId() {
 		return $this->_pressId;
 	}
-	
+
 
 	function _retrieveGenreList($contextId) {
 		$genreDao = DAORegistry::getDAO('GenreDAO'); /* @var $genreDao GenreDAO */
 		$genres = $genreDao->getEnabledByContextId($contextId);
-	
+
 		// Transform the genres into an array
 		$genreList = array();
 		while ($genre = $genres->next()) {
